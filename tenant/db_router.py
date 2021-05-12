@@ -11,18 +11,19 @@ class TenantSyncRouter(object):
         return (appconfig.name in apps_list) or (appconfig_full_name in apps_list)
 
     def allow_migrate(self, db, app_label, model_name=None, **hints):
-        from django.db import connection, DEFAULT_DB_ALIAS
+        from django.db import connection
 
-        if db != getattr(settings, "TENANT_DB_ALIAS", DEFAULT_DB_ALIAS):
-            return False
-
-        # connection = connections[db]
         with connection.cursor() as cursor:
             cursor.execute("show search_path")
-            try:
-                schema_name = cursor.fetchone()[0].split(",")[1].strip()
-            except Exception as e:
-                schema_name = cursor.fetchone()[0]
+            schema_name = cursor.fetchone()[0]
+
+        try:
+            schema_name = schema_name.split(",")[
+                1
+            ].strip()  # will set the schema for public
+        except Exception as e:
+            pass  # will set the schema for tenants
+
         if schema_name == getattr(settings, "PUBLIC_SCHEMA_NAME", "public"):
             if not self.app_in_list(app_label, settings.SHARED_APPS):
                 return False
