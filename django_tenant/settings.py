@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-473lp6k675obr59$dnc$uoqeix4o4rp5_tc#k@gfjam!zl3dud
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["django.tenant", ".django.tenant"]
 
 
 # Application definition
@@ -49,6 +49,7 @@ SHARED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "tenant",
+    "rest_framework",
 ]
 
 TENANT_APPS = [
