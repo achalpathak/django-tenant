@@ -1,7 +1,7 @@
 from tenant.models import TenantSchemaMap
 from django.db import connection
 from django.urls import reverse
-from django.contrib import settings
+from django.conf import settings
 
 
 class TenantMiddleware:

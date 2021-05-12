@@ -51,11 +51,11 @@ SHARED_APPS = [
     "tenant",
 ]
 
-TENANT_SPECIFIC_APPS = [
+TENANT_APPS = [
     "products",
 ]
 
-INSTALLED_APPS = SHARED_APPS + TENANT_SPECIFIC_APPS
+INSTALLED_APPS = SHARED_APPS + TENANT_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
